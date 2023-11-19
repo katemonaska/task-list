@@ -62,9 +62,7 @@ export class ToDoList extends Component{
                     <ul className='list'>
                         {this.state.toDoList.map((item, index) => (
                             <li onClick={this.doneTask} key={index}>
-                                <p>
-                                    {this.state.icon} {item}
-                                </p>
+                                {this.state.icon} {item}
                             </li>
                         ))}
                     </ul>
