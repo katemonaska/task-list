@@ -75,6 +75,7 @@ export class ToDoList extends Component{
                     </div>
                     <p className='note-text'>Double click to complete the task</p>
                     <ul className='list'>
+
                         {this.state.toDoList.map((item,index) => (
                             <ToDoItem key ={index} item={item}/>
                         ))}
