@@ -1,10 +1,33 @@
 import { Component } from 'react';
 
+export class Icon extends Component {
+    state = {
+        icon: '☑️',
+    }
+
+    // to change icon
+    clicked(e) {
+        if(e.detail===2){
+        const li = e.target;
+        this.setState({icon:'✅'})
+        }
+    }
+
+
+    render() {
+        const { index } = this.props
+        
+        return (
+            <li onClick={this.doneTask} key={index}></li>
+        )
+    }
+}
+
 export class ToDoList extends Component{
     state = {
         userInput: "",
         toDoList: [],
-        icon:"✅",
+        // icon:"☑️",
     }
 
     onChangeEvent(e){
@@ -31,9 +54,9 @@ export class ToDoList extends Component{
     }
 
     // to cross input 
-    doneTask(event) {
-        if(event.detail===2){
-        const li = event.target;
+    doneTask(e) {
+        if(e.detail===2){
+        const li = e.target;
         li.classList.add('crossed');
         // this.setState({icon:'✅'})
         }
@@ -62,9 +85,7 @@ export class ToDoList extends Component{
                     <ul className='list'>
                         {this.state.toDoList.map((item, index) => (
                             <li onClick={this.doneTask} key={index}>
-                                <p>
-                                    {this.state.icon} {item}
-                                </p>
+                                <Icon/>{this.state.icon} {item}
                             </li>
                         ))}
                     </ul>
