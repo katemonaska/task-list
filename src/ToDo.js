@@ -1,24 +1,27 @@
 import { Component } from 'react';
 
-export class Icon extends Component {
+export class ToDoItem extends Component {
     state = {
         icon: '☑️',
     }
 
-    // to change icon
-    clicked(e) {
-        if(e.detail===2){
-        const li = e.target;
-        this.setState({icon:'✅'})
-        }
-    }
-
-
+        // to cross input and change icon state
+        doneTask = (e) => {
+            if(e.detail===2){
+            const li = e.target;
+            li.classList.add('crossed');
+            this.setState({icon:'✅'});
+            }  
+        };
+    
     render() {
-        const { index } = this.props
+        const { item,index } = this.props
         
         return (
-            <li onClick={this.doneTask} key={index}></li>
+                <li onClick={this.doneTask} key={index}>
+                    <span> {this.state.icon} </span>
+                    {item}
+                </li> 
         )
     }
 }
@@ -27,7 +30,6 @@ export class ToDoList extends Component{
     state = {
         userInput: "",
         toDoList: [],
-        // icon:"☑️",
     }
 
     onChangeEvent(e){
@@ -53,20 +55,10 @@ export class ToDoList extends Component{
         this.setState({toDoList: listArray});
     }
 
-    // to cross input 
-    doneTask(e) {
-        if(e.detail===2){
-        const li = e.target;
-        li.classList.add('crossed');
-        // this.setState({icon:'✅'})
-        }
-    }
-
     // to enter input with pressing ENTER button
     onSubmitEvent(e){
         e.preventDefault();
     }
-
 
     render() {
         return(
@@ -83,10 +75,8 @@ export class ToDoList extends Component{
                     </div>
                     <p className='note-text'>Double click to complete the task</p>
                     <ul className='list'>
-                        {this.state.toDoList.map((item, index) => (
-                            <li onClick={this.doneTask} key={index}>
-                                <Icon/>{this.state.icon} {item}
-                            </li>
+                        {this.state.toDoList.map((item,index) => (
+                            <ToDoItem key ={index} item={item}/>
                         ))}
                     </ul>
                     <div>
@@ -97,4 +87,4 @@ export class ToDoList extends Component{
             </div>
             )
         }
-    }
+}
